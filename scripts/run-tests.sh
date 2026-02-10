@@ -10,7 +10,6 @@ CONFIG_FILE="${SCRIPT_DIR}/config/config.json"
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
@@ -49,7 +48,7 @@ if [[ $(echo "$response" | jq -r '.code') == "SUCCESS" ]]; then
     echo "$response" | jq -r '.data[] | "  https://app.ghostinspector.com/results/\(._id)"'
 else
     echo -e "${RED}Error executing tests${NC}"
-    echo "$(echo "$response" | jq -r '.message')"
+    echo "$response" | jq -r '.message'
     exit 1
 fi
 

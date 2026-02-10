@@ -48,7 +48,8 @@ create_page_test() {
         viewport_json="$viewport"
     fi
 
-    local response=$(curl -s -X POST "https://api.ghostinspector.com/v1/tests/?apiKey=${API_KEY}" \
+    local response
+    response=$(curl -s -X POST "https://api.ghostinspector.com/v1/tests/?apiKey=${API_KEY}" \
         -H "Content-Type: application/json" \
         -d "{
             \"name\": \"${name}\",
@@ -81,7 +82,7 @@ PAGE_COUNT=0
 while IFS= read -r line; do
     if [[ $PAGE_COUNT -lt 7 ]]; then
         slug=$(echo "$line" | awk '{print $1}')
-        title=$(echo "$line" | cut -d' ' -f2-)
+        _title=$(echo "$line" | cut -d' ' -f2-)
         if [[ -n "$slug" && "$slug" != "post_name" ]]; then
             DESKTOP_URLS+=("/${slug}/")
             DESKTOP_NAMES+=("/${slug}/")
@@ -113,7 +114,7 @@ else
     while IFS= read -r slug; do
         if [[ $EXTRA -lt 3 && -n "$slug" ]]; then
             # Check if not already added
-            if [[ ! " ${DESKTOP_URLS[@]} " =~ " /${slug}/ " ]]; then
+            if [[ ! " ${DESKTOP_URLS[*]} " =~ \ /${slug}/\  ]]; then
                 DESKTOP_URLS+=("/${slug}/")
                 DESKTOP_NAMES+=("/${slug}/")
                 echo "  /${slug}/"
@@ -179,7 +180,7 @@ echo "Total URLs to test: ${#DESKTOP_URLS[@]}"
 echo "Tests to create: $((${#DESKTOP_URLS[@]} * 2)) (desktop + mobile)"
 echo ""
 
-read -p "Continue? (Y/n): " confirm
+read -rp "Continue? (Y/n): " confirm
 if [[ "$confirm" =~ ^[Nn]$ ]]; then
     echo "Cancelled."
     exit 0
