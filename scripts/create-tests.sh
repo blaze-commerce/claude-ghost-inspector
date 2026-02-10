@@ -11,7 +11,6 @@ TEMPLATES_DIR="${SCRIPT_DIR}/templates"
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
@@ -64,12 +63,14 @@ echo ""
 # Function to process template and create test
 create_test() {
     local template_file="$1"
-    local test_name=$(jq -r '.name' "$template_file")
+    local test_name
+    test_name=$(jq -r '.name' "$template_file")
 
     echo -n "Creating: ${test_name}... "
 
     # Read template and replace placeholders
-    local steps=$(jq '.steps' "$template_file" | \
+    local steps
+    steps=$(jq '.steps' "$template_file" | \
         sed "s/{{add_to_cart_button}}/${SEL_ADD_TO_CART//\//\\/}/g" | \
         sed "s/{{ship_to_different_checkbox}}/${SEL_SHIP_DIFF//\//\\/}/g" | \
         sed "s/{{terms_checkbox}}/${SEL_TERMS//\//\\/}/g" | \
@@ -95,12 +96,14 @@ create_test() {
         sed "s/{{before_screenshot}}/${TO_SCREENSHOT}/g")
 
     # Create test via API
-    local response=$(curl -s -X POST "https://api.ghostinspector.com/v1/tests/?apiKey=${API_KEY}" \
+    local response
+    response=$(curl -s -X POST "https://api.ghostinspector.com/v1/tests/?apiKey=${API_KEY}" \
         -H "Content-Type: application/json" \
         -d "{\"name\": \"${test_name}\", \"suite\": \"${SUITE_ID}\", \"steps\": ${steps}}")
 
     if [[ $(echo "$response" | jq -r '.code') == "SUCCESS" ]]; then
-        local test_id=$(echo "$response" | jq -r '.data._id')
+        local test_id
+        test_id=$(echo "$response" | jq -r '.data._id')
         echo -e "${GREEN}OK${NC} (${test_id})"
     else
         echo -e "${RED}FAILED${NC}"

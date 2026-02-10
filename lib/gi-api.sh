@@ -13,8 +13,11 @@ load_config() {
     fi
 
     GI_API_KEY=$(jq -r '.api_key' "$config_file")
+    # shellcheck disable=SC2034
     GI_SITE_URL=$(jq -r '.site_url' "$config_file")
+    # shellcheck disable=SC2034
     GI_SUITE_ID=$(jq -r '.suite_id' "$config_file")
+    # shellcheck disable=SC2034
     GI_SUITE_NAME=$(jq -r '.suite_name' "$config_file")
 
     if [[ "$GI_API_KEY" == "YOUR_GHOST_INSPECTOR_API_KEY" ]] || [[ -z "$GI_API_KEY" ]]; then

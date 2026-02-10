@@ -4,11 +4,8 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
 # Colors
 RED='\033[0;31m'
-GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
@@ -39,6 +36,7 @@ echo "Active Payment Gateways:"
 echo ""
 
 # Get payment gateways using WP-CLI
+# shellcheck disable=SC2016
 wp eval '
 $gateways = WC()->payment_gateways()->get_available_payment_gateways();
 if (empty($gateways)) {
@@ -54,7 +52,7 @@ if (empty($gateways)) {
     echo ""
 
     # Alternative: Check options directly
-    wp option list --search="woocommerce_%_settings" --format=csv 2>/dev/null | while read line; do
+    wp option list --search="woocommerce_%_settings" --format=csv 2>/dev/null | while read -r line; do
         option_name=$(echo "$line" | cut -d',' -f1)
         if [[ "$option_name" == *"_settings" ]]; then
             gateway_id=$(echo "$option_name" | sed 's/woocommerce_//' | sed 's/_settings//')

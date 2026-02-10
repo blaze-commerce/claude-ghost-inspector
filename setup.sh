@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 echo ""
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${BLUE}           Claude Ghost Inspector Setup - v$(cat ${SCRIPT_DIR}/VERSION)${NC}"
+echo -e "${BLUE}           Claude Ghost Inspector Setup - v$(cat "${SCRIPT_DIR}/VERSION")${NC}"
 echo -e "${BLUE}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
 
@@ -27,7 +27,7 @@ command -v jq >/dev/null 2>&1 || { echo -e "${RED}Error: jq is required but not 
 # Check if already configured
 if [[ -f "$CONFIG_FILE" ]]; then
     echo -e "${YELLOW}Existing configuration found.${NC}"
-    read -p "Do you want to reconfigure? (y/N): " reconfigure
+    read -rp "Do you want to reconfigure? (y/N): " reconfigure
     if [[ ! "$reconfigure" =~ ^[Yy]$ ]]; then
         echo "Setup cancelled."
         exit 0
@@ -39,7 +39,7 @@ echo ""
 echo -e "${BLUE}Step 1: Ghost Inspector API Key${NC}"
 echo "Get your API key from: https://app.ghostinspector.com/settings/api-access"
 echo ""
-read -p "Enter your Ghost Inspector API Key: " api_key
+read -rp "Enter your Ghost Inspector API Key: " api_key
 
 # Validate API key
 echo -n "Validating API key... "
@@ -55,7 +55,7 @@ echo -e "${GREEN}VALID${NC}"
 # Get Site URL
 echo ""
 echo -e "${BLUE}Step 2: Site URL${NC}"
-read -p "Enter your site URL (e.g., https://example.com): " site_url
+read -rp "Enter your site URL (e.g., https://example.com): " site_url
 
 # Remove trailing slash
 site_url="${site_url%/}"
@@ -71,7 +71,7 @@ echo ""
 echo -e "${BLUE}Step 3: Suite Name${NC}"
 # Extract domain for default name
 default_name=$(echo "$site_url" | sed -e 's|https\?://||' -e 's|/.*||')
-read -p "Enter suite name (default: ${default_name}): " suite_name
+read -rp "Enter suite name (default: ${default_name}): " suite_name
 suite_name="${suite_name:-$default_name}"
 
 # Ask about creating suite
@@ -80,7 +80,7 @@ echo -e "${BLUE}Step 4: Ghost Inspector Suite${NC}"
 echo "Options:"
 echo "  1) Create a new suite"
 echo "  2) Use an existing suite ID"
-read -p "Choose option (1 or 2): " suite_option
+read -rp "Choose option (1 or 2): " suite_option
 
 if [[ "$suite_option" == "1" ]]; then
     echo -n "Creating suite '${suite_name}'... "
@@ -98,7 +98,7 @@ if [[ "$suite_option" == "1" ]]; then
         exit 1
     fi
 else
-    read -p "Enter existing suite ID: " suite_id
+    read -rp "Enter existing suite ID: " suite_id
 fi
 
 # Configure billing details
@@ -108,31 +108,31 @@ echo "These details will be used when filling checkout forms."
 echo "(Press Enter to use defaults)"
 echo ""
 
-read -p "First name (default: TEST): " billing_first_name
+read -rp "First name (default: TEST): " billing_first_name
 billing_first_name="${billing_first_name:-TEST}"
 
-read -p "Last name (default: TEST): " billing_last_name
+read -rp "Last name (default: TEST): " billing_last_name
 billing_last_name="${billing_last_name:-TEST}"
 
-read -p "Company (default: Blaze Commerce): " billing_company
+read -rp "Company (default: Blaze Commerce): " billing_company
 billing_company="${billing_company:-Blaze Commerce}"
 
-read -p "Address (default: 197 Bay Street): " billing_address
+read -rp "Address (default: 197 Bay Street): " billing_address
 billing_address="${billing_address:-197 Bay Street}"
 
-read -p "City (default: Brighton): " billing_city
+read -rp "City (default: Brighton): " billing_city
 billing_city="${billing_city:-Brighton}"
 
-read -p "Postcode (default: 3186): " billing_postcode
+read -rp "Postcode (default: 3186): " billing_postcode
 billing_postcode="${billing_postcode:-3186}"
 
-read -p "State (default: VIC): " billing_state
+read -rp "State (default: VIC): " billing_state
 billing_state="${billing_state:-VIC}"
 
-read -p "Phone (default: 0412345678): " billing_phone
+read -rp "Phone (default: 0412345678): " billing_phone
 billing_phone="${billing_phone:-0412345678}"
 
-read -p "Email (default: dev@blazecommerce.io): " billing_email
+read -rp "Email (default: dev@blazecommerce.io): " billing_email
 billing_email="${billing_email:-dev@blazecommerce.io}"
 
 # Create config file
@@ -184,7 +184,7 @@ echo -e "${GREEN}DONE${NC}"
 # Ask about creating tests
 echo ""
 echo -e "${BLUE}Step 6: Create Test Cases${NC}"
-read -p "Do you want to create all test cases now? (Y/n): " create_tests
+read -rp "Do you want to create all test cases now? (Y/n): " create_tests
 
 if [[ ! "$create_tests" =~ ^[Nn]$ ]]; then
     echo ""

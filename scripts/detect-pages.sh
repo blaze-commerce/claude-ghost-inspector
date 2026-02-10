@@ -4,12 +4,9 @@
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
 # Colors
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
@@ -77,14 +74,14 @@ echo -e "${GREEN}Recommended Test URLs:${NC}"
 echo ""
 
 echo "Desktop Pages:"
-wp post list --post_type=page --post_status=publish --field=post_name 2>/dev/null | head -7 | while read slug; do
+wp post list --post_type=page --post_status=publish --field=post_name 2>/dev/null | head -7 | while read -r slug; do
     echo "  /${slug}/"
 done
 echo ""
 
 if [[ "$POST_COUNT" -gt 0 ]]; then
     echo "Blog Posts (3):"
-    wp post list --post_type=post --post_status=publish --field=post_name 2>/dev/null | head -3 | while read slug; do
+    wp post list --post_type=post --post_status=publish --field=post_name 2>/dev/null | head -3 | while read -r slug; do
         echo "  /${slug}/"
     done
     echo ""
@@ -92,13 +89,13 @@ fi
 
 if wp plugin is-active woocommerce 2>/dev/null; then
     echo "Product Categories (3):"
-    wp term list product_cat --field=slug 2>/dev/null | head -3 | while read slug; do
+    wp term list product_cat --field=slug 2>/dev/null | head -3 | while read -r slug; do
         echo "  /product-category/${slug}/"
     done
     echo ""
 
     echo "Single Products (3):"
-    wp post list --post_type=product --post_status=publish --field=post_name 2>/dev/null | head -3 | while read slug; do
+    wp post list --post_type=product --post_status=publish --field=post_name 2>/dev/null | head -3 | while read -r slug; do
         echo "  /product/${slug}/"
     done
     echo ""
