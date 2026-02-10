@@ -42,21 +42,15 @@ jobs:
 
       - name: Create deployment zip
         run: |
-          zip -r "claude-ghost-inspector-v${{ steps.version.outputs.version }}.zip" \
-            setup.sh \
-            VERSION \
-            CHANGELOG.md \
-            README.md \
-            config/config.example.json \
-            lib/ \
-            scripts/ \
-            templates/ \
-            -x "*.git*" "config/config.json"
+          mkdir -p claude-ghost-inspector
+          cp -r setup.sh VERSION CHANGELOG.md README.md config lib scripts templates claude-ghost-inspector/
+          rm -f claude-ghost-inspector/config/config.json
+          zip -r claude-ghost-inspector.zip claude-ghost-inspector/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           name: v${{ steps.version.outputs.version }}
           body_path: release_notes.md
-          files: claude-ghost-inspector-v${{ steps.version.outputs.version }}.zip
+          files: claude-ghost-inspector.zip
           generate_release_notes: false
