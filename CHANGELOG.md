@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.1] - 2026-02-09
+
+### Fixed
+- All shellcheck linting issues across scripts (SC2162, SC2155, SC2034, SC2199, SC2076, SC2086, SC2005)
+- CI workflow now uses `shellcheck -x` to follow sourced files (SC1091)
+
 ## [1.1.0] - 2026-02-09
 
 ### Added
