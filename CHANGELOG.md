@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [1.1.2] - 2026-02-09
+
+### Fixed
+- Release zip now always named `claude-ghost-inspector.zip` with files inside a `claude-ghost-inspector/` folder
+- Clean extraction on Kinsta without version-specific folder names
+
 ## [1.1.1] - 2026-02-09
 
 ### Fixed
