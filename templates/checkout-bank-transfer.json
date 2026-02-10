@@ -1,0 +1,27 @@
+{
+  "name": "Checkout - Direct Bank Transfer Test",
+  "steps": [
+    {"sequence": 0, "command": "open", "target": "", "value": "/shop/"},
+    {"sequence": 1, "command": "click", "target": "{{add_to_cart_button}}", "value": ""},
+    {"sequence": 2, "command": "pause", "target": "", "value": "{{after_add_to_cart}}"},
+    {"sequence": 3, "command": "open", "target": "", "value": "/checkout/"},
+    {"sequence": 4, "command": "pause", "target": "", "value": "{{after_page_load}}"},
+    {"sequence": 5, "command": "assign", "target": "#billing_first_name", "value": "{{billing_first_name}}"},
+    {"sequence": 6, "command": "assign", "target": "#billing_last_name", "value": "{{billing_last_name}}"},
+    {"sequence": 7, "command": "assign", "target": "#billing_company", "value": "{{billing_company}}"},
+    {"sequence": 8, "command": "assign", "target": "#billing_address_1", "value": "{{billing_address_1}}"},
+    {"sequence": 9, "command": "assign", "target": "#billing_city", "value": "{{billing_city}}"},
+    {"sequence": 10, "command": "assign", "target": "#billing_postcode", "value": "{{billing_postcode}}"},
+    {"sequence": 11, "command": "assign", "target": "#billing_state", "value": "{{billing_state}}"},
+    {"sequence": 12, "command": "assign", "target": "#billing_phone", "value": "{{billing_phone}}"},
+    {"sequence": 13, "command": "assign", "target": "#billing_email", "value": "{{billing_email}}"},
+    {"sequence": 14, "command": "click", "target": "{{ship_to_different_checkbox}}", "value": ""},
+    {"sequence": 15, "command": "click", "target": "label[for={{payment_method_bank_transfer}}], #{{payment_method_bank_transfer}}", "value": ""},
+    {"sequence": 16, "command": "pause", "target": "", "value": "{{after_payment_select}}"},
+    {"sequence": 17, "command": "click", "target": "{{terms_checkbox}}", "value": ""},
+    {"sequence": 18, "command": "pause", "target": "", "value": "{{after_terms_click}}"},
+    {"sequence": 19, "command": "click", "target": "{{place_order_button}}", "value": ""},
+    {"sequence": 20, "command": "pause", "target": "", "value": "{{before_screenshot}}"},
+    {"sequence": 21, "command": "screenshot", "target": "", "value": ""}
+  ]
+}

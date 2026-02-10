@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-validate:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install shellcheck
+        run: sudo apt-get install -y shellcheck
+
+      - name: Lint shell scripts
+        run: |
+          shellcheck setup.sh
+          shellcheck scripts/*.sh
+          shellcheck lib/*.sh
+
+      - name: Validate JSON templates
+        run: |
+          for f in templates/*.json config/config.example.json; do
+            echo "Validating $f..."
+            jq empty "$f" || { echo "INVALID JSON: $f"; exit 1; }
+          done
+          echo "All JSON files valid."
+
+      - name: Check VERSION file
+        run: |
+          version=$(cat VERSION)
+          if [[ ! "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "ERROR: VERSION must be semver (got: $version)"
+            exit 1
+          fi
+          echo "VERSION: $version"
+
+      - name: Check scripts are executable
+        run: |
+          for f in setup.sh scripts/*.sh; do
+            if [[ ! -x "$f" ]]; then
+              echo "ERROR: $f is not executable"
+              exit 1
+            fi
+          done
+          echo "All scripts are executable."

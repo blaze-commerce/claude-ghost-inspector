@@ -1,0 +1,8 @@
+{
+  "name": "Mobile: {{page_name}}",
+  "viewportSize": {"width": 414, "height": 896},
+  "steps": [
+    {"sequence": 0, "command": "open", "target": "", "value": "{{page_url}}"},
+    {"sequence": 1, "command": "screenshot", "target": "", "value": ""}
+  ]
+}

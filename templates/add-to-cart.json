@@ -1,0 +1,10 @@
+{
+  "name": "Add Product to Cart (Desktop)",
+  "steps": [
+    {"sequence": 0, "command": "open", "target": "", "value": "/shop/"},
+    {"sequence": 1, "command": "click", "target": "{{add_to_cart_button}}", "value": ""},
+    {"sequence": 2, "command": "pause", "target": "", "value": "{{after_add_to_cart}}"},
+    {"sequence": 3, "command": "assertElementPresent", "target": ".added_to_cart, .wc-block-mini-cart__badge", "value": ""},
+    {"sequence": 4, "command": "screenshot", "target": "", "value": ""}
+  ]
+}

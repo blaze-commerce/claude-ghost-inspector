@@ -1,0 +1,37 @@
+{
+  "api_key": "YOUR_GHOST_INSPECTOR_API_KEY",
+  "site_url": "https://example.com",
+  "suite_id": "",
+  "suite_name": "example.com",
+  "billing": {
+    "first_name": "TEST",
+    "last_name": "TEST",
+    "company": "Blaze Commerce",
+    "address_1": "197 Bay Street",
+    "city": "Brighton",
+    "postcode": "3186",
+    "state": "VIC",
+    "phone": "0412345678",
+    "email": "dev@blazecommerce.io"
+  },
+  "payment_methods": {
+    "paypal": "payment_method_ppcp-gateway",
+    "card": "payment_method_woocommerce_payments",
+    "afterpay": "payment_method_afterpay",
+    "bank_transfer": "payment_method_bacs",
+    "pay_on_account": "payment_method_cod"
+  },
+  "selectors": {
+    "add_to_cart_button": ".products .product:first-child a.add_to_cart_button",
+    "ship_to_different_checkbox": "#ship-to-different-address-checkbox",
+    "terms_checkbox": "#terms, input[name=terms]",
+    "place_order_button": "#place_order"
+  },
+  "timeouts": {
+    "after_add_to_cart": 3000,
+    "after_page_load": 3000,
+    "after_payment_select": 2000,
+    "after_terms_click": 1000,
+    "before_screenshot": 5000
+  }
+}

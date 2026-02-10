@@ -1,0 +1,8 @@
+{
+  "name": "{{page_name}}",
+  "viewportSize": null,
+  "steps": [
+    {"sequence": 0, "command": "open", "target": "", "value": "{{page_url}}"},
+    {"sequence": 1, "command": "screenshot", "target": "", "value": ""}
+  ]
+}
